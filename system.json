@@ -141,8 +141,8 @@
   "primaryTokenAttribute": "stress.physical.value",
   "secondaryTokenAttribute": "stress.mental.value",
   "url": "",
-  "manifest": "",
-  "download": "",
+  "manifest": "https://raw.githubusercontent.com/SebsokK/cthulhu-dreamt/main/system.json",
+  "download": "https://github.com/SebsokK/cthulhu-dreamt/releases/download/v0.1.0/cthulhu-dreamt.zip",
   "license": "LICENSE.txt",
   "readme": "README.md",
   "changelog": "CHANGELOG.md"
