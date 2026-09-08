@@ -1,0 +1,183 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "identity": {
+        "name": "",
+        "pronouns": "",
+        "specialty": "",
+        "age": "",
+        "race": "",
+        "build": "",
+        "eyes": "",
+        "hair": "",
+        "speech": "",
+        "physicalDescription": "",
+        "background": ""
+      },
+      "attributes": {
+        "attributes": {
+          "strong": {
+            "value": 3,
+            "max": 3,
+            "label": "CD.Attribute.strong"
+          },
+          "agile": {
+            "value": 4,
+            "max": 4,
+            "label": "CD.Attribute.agile"
+          },
+          "cunning": {
+            "value": 1,
+            "max": 1,
+            "label": "CD.Attribute.cunning"
+          },
+          "vigilant": {
+            "value": 2,
+            "max": 2,
+            "label": "CD.Attribute.vigilant"
+          },
+          "careful": {
+            "value": 2,
+            "max": 2,
+            "label": "CD.Attribute.careful"
+          },
+          "tenacious": {
+            "value": 3,
+            "max": 3,
+            "label": "CD.Attribute.tenacious"
+          }
+        }
+      },
+      "stress": {
+        "stress": {
+          "physical": {
+            "value": 0,
+            "limit": 8,
+            "label": "CD.Stress.physical"
+          },
+          "mental": {
+            "value": 0,
+            "limit": 3,
+            "label": "CD.Stress.mental"
+          }
+        }
+      },
+      "wounds": {
+        "wounds": {
+          "physical": {
+            "mild": { "description": "", "track": 0, "trackMax": 6 },
+            "serious": { "description": "", "track": 0, "trackMax": 6 },
+            "severe": { "description": "", "track": 0, "trackMax": 6 }
+          },
+          "mental": {
+            "mild": { "description": "", "track": 0, "trackMax": 6 },
+            "serious": { "description": "", "track": 0, "trackMax": 6 },
+            "severe": { "description": "", "track": 0, "trackMax": 6 }
+          }
+        }
+      },
+      "progression": {
+        "tierValue": 1,
+        "armorValue": 0,
+        "carryingCapacity": {
+          "base": 7,
+          "bonus": 0,
+          "total": 7
+        },
+        "load": {
+          "current": 0
+        },
+        "ip": {
+          "gained": 0,
+          "spent": 0,
+          "remaining": 0
+        }
+      }
+    },
+    "character": {
+      "templates": ["identity", "attributes", "stress", "wounds", "progression"],
+      "goals": {
+        "current": [],
+        "completed": []
+      },
+      "proficiencies": {
+        "closeQuarters": 0,
+        "smallArms":     0,
+        "longArms":      0,
+        "thrown":        0,
+        "unarmed":       0,
+        "edge":          0
+      },
+      "notes": ""
+    },
+    "npc": {
+      "templates": [],
+      "initiative": 3,
+      "tn": 8,
+      "physLimit": { "value": 0, "max": 10 },
+      "menLimit":  { "value": 0, "max": 5  },
+      "traits":       [],
+      "majorActions": [],
+      "minorActions": [],
+      "notes": ""
+    }
+  },
+  "Item": {
+    "types": ["skill", "weapon", "armor", "tool", "gear", "specialty"],
+    "templates": {
+      "base": {
+        "description": "",
+        "size": 1
+      }
+    },
+    "specialty": {
+      "templates": ["base"],
+      "tierMax": 3,
+      "attributes": {},
+      "physLimit": 0,
+      "menLimit": 0,
+      "carryCapacity": 7,
+      "skills": []
+    },
+    "skill": {
+      "templates": ["base"],
+      "uses": {
+        "value": 1,
+        "max": 1,
+        "per": "day",
+        "type": "limited"
+      },
+      "tier": 1,
+      "specialty": ""
+    },
+    "weapon": {
+      "templates": ["base"],
+      "range": "close",
+      "shots": { "value": 1, "max": 1 },
+      "stress": "",
+      "category": "close-quarters",
+      "modifier": 0,
+      "ammoType": "",
+      "equipped": false
+    },
+    "armor": {
+      "templates": ["base"],
+      "armorValue": 0,
+      "carryCapacityBonus": 0,
+      "equipped": false
+    },
+    "tool": {
+      "templates": ["base"],
+      "tnBonus": 0,
+      "broken": false,
+      "quantity": 1
+    },
+    "gear": {
+      "templates": ["base"],
+      "carryCapacityBonus": 0,
+      "quantity": 1,
+      "equipped": false
+    }
+  }
+}

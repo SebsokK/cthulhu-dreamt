@@ -1,0 +1,7 @@
+2026/09/01-00:17:02.003 80ec Recovering log #14
+2026/09/01-00:17:02.009 80ec Delete type=0 #14
+2026/09/01-00:17:02.009 80ec Delete type=3 #12
+2026/09/01-00:17:55.987 6838 Level-0 table #19: started
+2026/09/01-00:17:55.987 6838 Level-0 table #19: 0 bytes OK
+2026/09/01-00:17:55.989 6838 Delete type=0 #17
+2026/09/01-00:17:55.997 6838 Manual compaction at level-0 from '!actors!5mCSgS4ndo0WEvNS' @ 72057594037927935 : 1 .. '!actors!yjnKHP6l3DoKZ2jj' @ 0 : 0; will stop at (end)

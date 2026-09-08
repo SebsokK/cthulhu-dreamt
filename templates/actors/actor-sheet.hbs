@@ -1,0 +1,48 @@
+{{!-- templates/actors/actor-sheet.hbs --}}
+<div class="cd-sheet {{type}}">
+
+  {{!-- Animated SVG background line --}}
+  <svg class="cd-bg-line" viewBox="0 0 860 680" preserveAspectRatio="none" aria-hidden="true">
+    <line class="cd-scan-line" x1="0" y1="0" x2="860" y2="0"/>
+  </svg>
+
+  {{!-- HEADER FULL WIDTH (portrait + identity + stats) --}}
+  <div class="cd-header-row">
+    <div class="cd-portrait-wrap">
+      <img class="cd-portrait" src="{{actor.img}}" alt="{{actor.name}}" title="Change portrait">
+    </div>
+    {{> "systems/cthulhu-dreamt/templates/actors/parts/header.hbs"}}
+  </div>
+
+  {{!-- BODY: tab nav LEFT + content RIGHT --}}
+  <div class="cd-body">
+
+    <nav class="cd-tab-nav">
+      <a class="cd-tab-btn" data-tab="stats" title="{{localize 'CD-Tab-stats'}}">
+        <i class="fas fa-brain"></i>
+        <span>{{localize "CD-Tab-stats"}}</span>
+      </a>
+      <a class="cd-tab-btn" data-tab="inventory" title="{{localize 'CD-Tab-inventory'}}">
+        <i class="fas fa-box-open"></i>
+        <span>{{localize "CD-Tab-inventory"}}</span>
+      </a>
+      <a class="cd-tab-btn" data-tab="goals" title="{{localize 'CD-Tab-goals'}}">
+        <i class="fas fa-flag"></i>
+        <span>{{localize "CD-Tab-goals"}}</span>
+      </a>
+    </nav>
+
+    <section class="cd-tab-content">
+      <div class="cd-tab-panel" data-tab="stats">
+        {{> "systems/cthulhu-dreamt/templates/actors/parts/tab-stats.hbs"}}
+      </div>
+      <div class="cd-tab-panel" data-tab="inventory">
+        {{> "systems/cthulhu-dreamt/templates/actors/parts/tab-inventory.hbs"}}
+      </div>
+      <div class="cd-tab-panel" data-tab="goals">
+        {{> "systems/cthulhu-dreamt/templates/actors/parts/tab-goals.hbs"}}
+      </div>
+    </section>
+
+  </div>
+</div>

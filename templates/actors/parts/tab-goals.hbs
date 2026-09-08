@@ -1,0 +1,115 @@
+{{!-- templates/actors/parts/tab-goals.hbs --}}
+<div class="cd-goals-layout">
+
+  {{!-- CURRENT GOALS + COMPLETED GOALS côte à côte --}}
+  <div class="cd-goals-dual">
+
+    {{!-- CURRENT GOALS --}}
+    <div class="cd-panel">
+      <div class="cd-section-header">
+        <h3 class="cd-panel-title">CURRENT GOALS</h3>
+        <button type="button" class="cd-btn-icon" data-action="goalAdd" data-goal-type="current">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="cd-goal-list">
+        {{#each currentGoals}}
+        <div class="cd-goal-row" data-goal-index="{{@index}}" data-goal-type="current">
+          <textarea class="cd-input cd-goal-desc" name="system.goals.current.{{@index}}.description"
+            rows="1" placeholder="Goal description">{{description}}</textarea>
+          <input class="cd-input cd-goal-ip" type="number"
+            name="system.goals.current.{{@index}}.ip"
+            value="{{ip}}" min="0" title="IP value" />
+          <span class="cd-goal-ip-label">IP</span>
+          <button type="button" class="cd-btn-icon cd-btn-complete" data-action="goalComplete" title="Mark complete">
+            <i class="fas fa-check"></i>
+          </button>
+          <button type="button" class="cd-btn-icon cd-btn-delete" data-action="goalDelete" title="Delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        {{else}}
+        <p class="cd-empty-hint">No current goals.</p>
+        {{/each}}
+      </div>
+    </div>
+
+    {{!-- COMPLETED GOALS --}}
+    <div class="cd-panel">
+      <div class="cd-section-header">
+        <h3 class="cd-panel-title">COMPLETED GOALS</h3>
+        <button type="button" class="cd-btn-icon" data-action="goalAdd" data-goal-type="completed">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="cd-goal-list cd-goal-list-done">
+        {{#each completedGoals}}
+        <div class="cd-goal-row cd-goal-done" data-goal-index="{{@index}}" data-goal-type="completed">
+          <textarea class="cd-input cd-goal-desc" name="system.goals.completed.{{@index}}.description"
+            rows="1" placeholder="—">{{description}}</textarea>
+          <input class="cd-input cd-goal-ip" type="number"
+            name="system.goals.completed.{{@index}}.ip"
+            value="{{ip}}" min="0" />
+          <span class="cd-goal-ip-label">IP</span>
+          <button type="button" class="cd-btn-icon cd-btn-restore" data-action="goalRestore" title="Restore to current">
+            <i class="fas fa-rotate-left"></i>
+          </button>
+          <button type="button" class="cd-btn-icon cd-btn-delete" data-action="goalDelete" title="Delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        {{else}}
+        <p class="cd-empty-hint">No completed goals yet.</p>
+        {{/each}}
+      </div>
+    </div>
+
+  </div>
+
+  {{!-- PHYSICAL DESCRIPTION --}}
+  <div class="cd-panel cd-accordion">
+    <div class="cd-accordion-header" data-accordion="physDesc">
+      <h3 class="cd-panel-title">PHYSICAL DESCRIPTION</h3>
+      <i class="fas fa-chevron-down cd-accordion-chevron"></i>
+    </div>
+    <div class="cd-accordion-body" data-accordion-body="physDesc">
+      <div class="cd-desc-grid">
+        {{#each (array "age" "race" "build" "eyes" "hair" "speech")}}
+        <label class="cd-label cd-desc-label">{{upper this}}</label>
+        <input class="cd-input cd-desc-input" type="text"
+          name="system.{{this}}" value="{{lookup ../system this}}" placeholder="—" />
+        {{/each}}
+        <label class="cd-label cd-desc-label" style="align-self:start;padding-top:4px">CHAR.</label>
+        <textarea class="cd-textarea" name="system.physicalDescription"
+          rows="2" placeholder="—">{{system.physicalDescription}}</textarea>
+      </div>
+    </div>
+  </div>
+
+  {{!-- BACKGROUND --}}
+  <div class="cd-panel cd-accordion cd-accordion-flex">
+    <div class="cd-accordion-header" data-accordion="background">
+      <h3 class="cd-panel-title">BACKGROUND</h3>
+      <i class="fas fa-chevron-down cd-accordion-chevron"></i>
+    </div>
+    <div class="cd-accordion-body cd-accordion-body-flex" data-accordion-body="background">
+      <div class="cd-editor-group cd-editor-flex">
+        {{editor enriched.background target="system.background" button=true engine="prosemirror" collaborate=false editable=editable}}
+      </div>
+    </div>
+  </div>
+
+  {{!-- NOTES --}}
+  <div class="cd-panel cd-accordion cd-accordion-flex">
+    <div class="cd-accordion-header" data-accordion="notes">
+      <h3 class="cd-panel-title">NOTES</h3>
+      <i class="fas fa-chevron-down cd-accordion-chevron"></i>
+    </div>
+    <div class="cd-accordion-body cd-accordion-body-flex" data-accordion-body="notes">
+      <div class="cd-editor-group cd-editor-flex">
+        {{editor enriched.notes target="system.notes" button=true engine="prosemirror" collaborate=false editable=editable}}
+      </div>
+    </div>
+  </div>
+
+</div>

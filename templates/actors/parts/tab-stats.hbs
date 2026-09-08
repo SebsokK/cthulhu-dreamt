@@ -1,0 +1,189 @@
+{{!-- templates/actors/parts/tab-stats.hbs --}}
+<div class="cd-stats-layout">
+
+  {{!-- COL GAUCHE: Abilities --}}
+  <div class="cd-panel cd-abilities-panel">
+    <div class="cd-section-header">
+      <h3 class="cd-panel-title">ABILITIES</h3>
+      <button type="button" class="cd-btn-icon" data-action="progressionDialog"
+        title="Attribute Progression">
+        <i class="fas fa-book-open"></i>
+      </button>
+    </div>
+    <div class="cd-attr-list">
+      {{#each attributeList}}
+      <div class="cd-attr-row" data-attribute="{{key}}">
+        <div class="cd-attr-top">
+          <button type="button" class="cd-attr-name rollable"
+            data-action="rollAttribute"
+            data-attribute="{{key}}"
+            title="Roll {{label}}">{{label}}</button>
+          <div class="cd-attr-pips">
+            {{#each pips}}
+            <button type="button" class="pip {{#if filled}}filled{{/if}}"
+              data-action="pipClick" data-pip-index="{{add @index 1}}">
+            </button>
+            {{/each}}
+          </div>
+          <input type="number" name="system.attributes.{{key}}.max" value="{{max}}"
+            min="0" max="12" class="cd-max-input" title="Max" />
+        </div>
+        <span class="cd-attr-sub">{{subtitle}}</span>
+      </div>
+      {{/each}}
+    </div>
+
+    {{!-- Proficiencies --}}
+    <div class="cd-prof-block">
+      <h4 class="cd-prof-title">COMBAT PROFICIENCY</h4>
+      {{#each proficiencyList}}
+      <div class="cd-prof-row" data-proficiency="{{key}}">
+        <span class="cd-prof-label">{{label}}</span>
+        <div class="cd-prof-pips">
+          {{#each pips}}
+          <button type="button" class="pip pip-sm {{#if filled}}filled{{/if}}"
+            data-action="profPipClick"
+            data-proficiency="{{../key}}"
+            data-pip-index="{{add @index 1}}">
+          </button>
+          {{/each}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  {{!-- COL DROITE: Stress + Skills --}}
+  <div class="cd-right-column">
+
+    {{!-- Physical Stress — dépliable --}}
+    <div class="cd-panel cd-stress-panel" data-stress="physical">
+      <div class="cd-stress-header cd-stress-toggle" data-stress="physical">
+        <span class="cd-panel-title">PHYSICAL STRESS</span>
+        <div class="cd-stress-values">
+          <input class="cd-stress-current" type="number" name="system.stress.physical.value"
+            value="{{physicalStress.value}}" min="0" max="{{physicalStress.limit}}" />
+          <span class="cd-stress-sep">/</span>
+          <input class="cd-stress-limit" type="number" name="system.stress.physical.limit"
+            value="{{physicalStress.limit}}" min="0" max="12" />
+        </div>
+        <i class="fas fa-chevron-down cd-stress-chevron"></i>
+      </div>
+      <div class="cd-stress-bar-wrap">
+        <div class="cd-stress-bar physical {{#if physicalDanger}}danger{{/if}}" style="width: {{physicalPct}}%"></div>
+      </div>
+      <div class="cd-wounds-collapsible">
+        <div class="cd-wounds-table">
+          <div class="cd-wounds-header">
+            <span>LEVEL</span><span>DESCRIPTION</span><span>TRACK</span>
+          </div>
+          {{#each (array "mild" "serious" "severe")}}
+          <div class="cd-wound-row">
+            <span class="cd-wound-level">{{this}}</span>
+            <input class="cd-input cd-wound-desc" type="text"
+              name="system.wounds.physical.{{this}}.description"
+              value="{{lookup (lookup ../physicalWounds this) 'description'}}" placeholder="—" />
+            <div class="cd-wound-track" data-level="{{this}}" data-stress-type="physical">
+              {{#times 6}}
+              <button type="button"
+                class="cd-track-cell {{#if (lt this (lookup (lookup ../../physicalWounds ../this) 'track'))}}filled{{/if}}"
+                data-action="woundTrackClick"
+                data-stress-type="physical"
+                data-level="{{../this}}"
+                data-index="{{this}}">
+              </button>
+              {{/times}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Mental Stress — dépliable --}}
+    <div class="cd-panel cd-stress-panel" data-stress="mental">
+      <div class="cd-stress-header cd-stress-toggle" data-stress="mental">
+        <span class="cd-panel-title">MENTAL STRESS</span>
+        <div class="cd-stress-values">
+          <input class="cd-stress-current" type="number" name="system.stress.mental.value"
+            value="{{mentalStress.value}}" min="0" max="{{mentalStress.limit}}" />
+          <span class="cd-stress-sep">/</span>
+          <input class="cd-stress-limit" type="number" name="system.stress.mental.limit"
+            value="{{mentalStress.limit}}" min="0" max="12" />
+        </div>
+        <i class="fas fa-chevron-down cd-stress-chevron"></i>
+      </div>
+      <div class="cd-stress-bar-wrap">
+        <div class="cd-stress-bar mental {{#if mentalDanger}}danger{{/if}}" style="width: {{mentalPct}}%"></div>
+      </div>
+      <div class="cd-wounds-collapsible">
+        <div class="cd-wounds-table">
+          <div class="cd-wounds-header">
+            <span>LEVEL</span><span>DESCRIPTION</span><span>TRACK</span>
+          </div>
+          {{#each (array "mild" "serious" "severe")}}
+          <div class="cd-wound-row">
+            <span class="cd-wound-level">{{this}}</span>
+            <input class="cd-input cd-wound-desc" type="text"
+              name="system.wounds.mental.{{this}}.description"
+              value="{{lookup (lookup ../mentalWounds this) 'description'}}" placeholder="—" />
+            <div class="cd-wound-track" data-level="{{this}}" data-stress-type="mental">
+              {{#times 6}}
+              <button type="button"
+                class="cd-track-cell {{#if (lt this (lookup (lookup ../../mentalWounds ../this) 'track'))}}filled{{/if}}"
+                data-action="woundTrackClick"
+                data-stress-type="mental"
+                data-level="{{../this}}"
+                data-index="{{this}}">
+              </button>
+              {{/times}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    {{!-- Skills --}}
+    <div class="cd-panel cd-skills-panel">
+      <div class="cd-section-header">
+        <h3 class="cd-panel-title">SKILLS</h3>
+        <div class="cd-skills-btns">
+          <button type="button" class="cd-btn-icon" data-action="availableSkills"
+            title="Available Skills from Specialty">
+            <i class="fas fa-book-open"></i>
+          </button>
+          <button type="button" class="cd-btn-icon" data-action="itemCreate" data-type="skill" title="Add skill">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      {{#if skills.length}}
+      <div class="cd-skill-list">
+        {{#each skills}}
+        <div class="cd-skill-row" data-item-id="{{id}}">
+          <span class="cd-skill-name">{{name}}</span>
+          <span class="cd-skill-desc">{{{system.description}}}</span>
+          <div class="cd-skill-uses">
+            {{#if (eq system.uses.type "limited")}}
+            <button type="button" class="cd-btn-tiny" data-action="skillUse" title="Use skill">
+              {{system.uses.value}}/{{system.uses.max}}
+            </button>
+            {{else}}
+            <span class="cd-skill-passive">—</span>
+            {{/if}}
+          </div>
+          <div class="cd-item-controls">
+            <a data-action="itemEdit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a data-action="itemDelete" title="Delete"><i class="fas fa-trash"></i></a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      {{else}}
+      <p class="cd-empty-hint">No skills yet.</p>
+      {{/if}}
+    </div>
+
+  </div>
+</div>

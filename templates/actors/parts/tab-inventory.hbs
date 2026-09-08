@@ -1,0 +1,214 @@
+{{!-- templates/actors/parts/tab-inventory.hbs --}}
+<div class="cd-inventory-layout">
+
+  {{!-- LOAD BAR — en haut, pleine largeur --}}
+  <div class="cd-panel cd-load-header">
+    <div class="cd-load-header-top">
+      <span class="cd-panel-title">LOAD</span>
+      <span class="cd-load-fraction {{#if load.isOverloaded}}overloaded{{/if}}">
+        {{load.current}} / {{cc.total}}
+      </span>
+    </div>
+    <div class="cd-load-boxes">
+      {{#times cc.total}}
+      <div class="cd-load-box {{#if (lt this ../load.current)}}filled{{/if}} {{#if (gt ../load.current ../cc.total)}}overloaded{{/if}}"></div>
+      {{/times}}
+    </div>
+    <div class="cd-load-legend">
+      <span class="cd-load-legend-item">
+        <span class="cd-label">LOAD</span>
+        <span class="cd-load-val {{#if load.isOverloaded}}overloaded{{/if}}">{{load.current}}</span>
+      </span>
+      <span class="cd-load-legend-item">
+        <span class="cd-label">+ BONUSES</span>
+        <span class="cd-load-val">{{cc.bonus}}</span>
+      </span>
+      <span class="cd-load-legend-item">
+        <span class="cd-label">CAPACITY</span>
+        <span class="cd-load-val">{{cc.total}}</span>
+      </span>
+    </div>
+  </div>
+
+  {{!-- TOOLS --}}
+  <div class="cd-panel">
+    <div class="cd-section-header">
+      <h3 class="cd-panel-title">{{localize "CD-Inventory-tools"}}</h3>
+      <button type="button" class="cd-btn-icon" data-action="itemCreate" data-type="tool" title="Add tool">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <table class="cd-inv-table">
+      <thead>
+        <tr>
+          <th>{{localize "CD-Inventory-name"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-size"}}</th>
+          <th>{{localize "CD-Inventory-description"}}</th>
+          <th class="cd-col-ctrl"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each tools}}
+        <tr data-item-id="{{id}}">
+          <td class="cd-item-name">
+            <img class="cd-item-icon" src="{{img}}" alt="{{name}}" />{{name}}
+          </td>
+          <td class="cd-col-sm">{{system.size}}</td>
+          <td class="cd-item-desc">{{{system.description}}}</td>
+          <td class="cd-item-controls">
+            <a data-action="itemEdit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a data-action="itemDelete" title="Delete"><i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td colspan="4" class="cd-empty-hint">—</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{!-- ARMOR --}}
+  <div class="cd-panel">
+    <div class="cd-section-header">
+      <h3 class="cd-panel-title">{{localize "CD-Inventory-armor"}}</h3>
+      <button type="button" class="cd-btn-icon" data-action="itemCreate" data-type="armor" title="Add armor">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <table class="cd-inv-table">
+      <thead>
+        <tr>
+          <th>{{localize "CD-Inventory-name"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-size"}}</th>
+          <th>{{localize "CD-Inventory-description"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-av"}}</th>
+          <th class="cd-col-ctrl"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each armors}}
+        <tr data-item-id="{{id}}">
+          <td class="cd-item-name">
+            <img class="cd-item-icon" src="{{img}}" alt="{{name}}" />
+            <button type="button" class="cd-equip-btn {{#if system.equipped}}equipped{{/if}}"
+              data-action="itemEquip" title="{{#if system.equipped}}Unequip{{else}}Equip{{/if}}">
+              <i class="fas {{#if system.equipped}}fa-shield-alt{{else}}fa-shield{{/if}}"></i>
+            </button>
+            {{name}}
+          </td>
+          <td class="cd-col-sm">{{system.size}}</td>
+          <td class="cd-item-desc">{{{system.description}}}</td>
+          <td class="cd-col-sm">{{system.armorValue}}</td>
+          <td class="cd-item-controls">
+            <a data-action="itemEdit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a data-action="itemDelete" title="Delete"><i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td colspan="5" class="cd-empty-hint">—</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{!-- WEAPONS --}}
+  <div class="cd-panel">
+    <div class="cd-section-header">
+      <h3 class="cd-panel-title">{{localize "CD-Inventory-weapons"}}</h3>
+      <button type="button" class="cd-btn-icon" data-action="itemCreate" data-type="weapon" title="Add weapon">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <table class="cd-inv-table">
+      <thead>
+        <tr>
+          <th>{{localize "CD-Inventory-name"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-size"}}</th>
+          <th>{{localize "CD-Inventory-description"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-range"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-shots"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-stress"}}</th>
+          <th class="cd-col-ctrl"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each weapons}}
+        <tr data-item-id="{{id}}">
+          <td class="cd-item-name">
+            <button type="button" class="cd-item-roll-btn" data-action="rollWeapon"
+              title="Roll Attack">
+              <i class="fas fa-crosshairs"></i>
+            </button>
+            <img class="cd-item-icon" src="{{img}}" alt="{{name}}" />{{name}}
+          </td>
+          <td class="cd-col-sm">{{system.size}}</td>
+          <td class="cd-item-desc">{{{system.description}}}</td>
+          <td class="cd-col-sm">{{system.range}}</td>
+          <td class="cd-col-shots">
+            {{system.shots.value}}/{{system.shots.max}}
+            {{#if system.shots.max}}
+            <button type="button" class="cd-reload-btn {{#if (eq system.shots.value 0)}}empty{{/if}}"
+              data-action="reloadWeapon" title="Reload">
+              <i class="fas fa-rotate"></i>
+            </button>
+            {{/if}}
+          </td>
+          <td class="cd-col-sm">{{system.stress}}</td>
+          <td class="cd-item-controls">
+            <a data-action="itemEdit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a data-action="itemDelete" title="Delete"><i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td colspan="7" class="cd-empty-hint">—</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{!-- GEAR --}}
+  <div class="cd-panel">
+    <div class="cd-section-header">
+      <h3 class="cd-panel-title">GEAR</h3>
+      <button type="button" class="cd-btn-icon" data-action="itemCreate" data-type="gear" title="Add gear">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <table class="cd-inv-table">
+      <thead>
+        <tr>
+          <th>{{localize "CD-Inventory-name"}}</th>
+          <th class="cd-col-sm">{{localize "CD-Inventory-size"}}</th>
+          <th>{{localize "CD-Inventory-description"}}</th>
+          <th class="cd-col-sm">QTY</th>
+          <th class="cd-col-sm">CARRY+</th>
+          <th class="cd-col-ctrl"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each gears}}
+        <tr data-item-id="{{id}}">
+          <td class="cd-item-name">
+            <img class="cd-item-icon" src="{{img}}" alt="{{name}}" />{{name}}
+          </td>
+          <td class="cd-col-sm">{{system.size}}</td>
+          <td class="cd-item-desc">{{{system.description}}}</td>
+          <td class="cd-col-sm">{{system.quantity}}</td>
+          <td class="cd-col-sm">{{#if system.carryCapacityBonus}}+{{system.carryCapacityBonus}}{{else}}—{{/if}}</td>
+          <td class="cd-item-controls">
+            <button type="button" class="cd-equip-btn {{#if system.equipped}}equipped{{/if}}"
+              data-action="itemEquip" title="{{#if system.equipped}}Unequip{{else}}Equip{{/if}}">
+              <i class="fas {{#if system.equipped}}fa-bag-shopping{{else}}fa-bag-shopping{{/if}}"></i>
+            </button>
+            <a data-action="itemEdit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a data-action="itemDelete" title="Delete"><i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+        {{else}}
+        <tr><td colspan="6" class="cd-empty-hint">—</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+</div>

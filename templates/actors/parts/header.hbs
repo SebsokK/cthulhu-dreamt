@@ -1,0 +1,83 @@
+{{!-- templates/actors/parts/header.hbs --}}
+<header class="cd-header">
+
+  <div class="cd-header-identity">
+    <div class="cd-field-group">
+      <label class="cd-label">{{localize "CD-Header-name"}}</label>
+      <input class="cd-input cd-name-input" type="text" name="name" value="{{actor.name}}" placeholder="—" />
+    </div>
+    <div class="cd-field-group">
+      <label class="cd-label">{{localize "CD-Header-specialty"}}</label>
+      {{#if system.specialty}}
+      <div class="cd-specialty-drop-zone has-specialty" data-drop-type="specialty">
+        <span class="cd-specialty-name">{{system.specialty}}</span>
+        <div class="cd-specialty-actions">
+          <button type="button" class="cd-specialty-prog-btn" data-action="specialtyProgression"
+            title="Specialty Progression">
+            <i class="fas fa-book-open"></i>
+          </button>
+          <button type="button" class="cd-specialty-clear" data-action="removeSpecialty" title="Remove specialty">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      {{else}}
+      <button type="button" class="cd-create-char-btn" data-action="createCharacter">
+        <i class="fas fa-wand-magic-sparkles"></i>
+        CREATE CHARACTER
+      </button>
+      {{/if}}
+    </div>
+  </div>
+
+  {{!-- Groupe 1 : Tier (lié à l'identité) --}}
+  <div class="cd-header-group">
+    <div class="cd-stat-box">
+      <span class="cd-stat-label">TIER</span>
+      <input class="cd-stat-val" type="number" name="system.tierValue" value="{{system.tierValue}}" min="1" max="3" />
+    </div>
+  </div>
+
+  {{!-- Groupe 2 : Combat --}}
+  <div class="cd-header-group">
+    <div class="cd-stat-box">
+      <span class="cd-stat-label">ARMOR</span>
+      <input class="cd-stat-val" type="number" name="system.armorValue" value="{{system.armorValue}}" min="0" max="12" />
+    </div>
+    <div class="cd-stat-box">
+      <span class="cd-stat-label">CAPACITY</span>
+      <div class="cd-capacity-val">
+        <input class="cd-stat-val cd-capacity-current {{#if load.overloaded}}overloaded{{/if}}"
+          type="number" name="system.load.current" value="{{load.current}}" min="0" readonly />
+        <span class="cd-capacity-sep">/</span>
+        <span class="cd-capacity-max">{{cc.total}}</span>
+      </div>
+    </div>
+  </div>
+
+  {{!-- Groupe 3 : IP --}}
+  <div class="cd-header-group">
+    <div class="cd-header-ip-block">
+      <span class="cd-stat-label">IP GAINED</span>
+      <input class="cd-stat-val cd-ip-header-input" type="number"
+        name="system.ip.gained" value="{{ip.gained}}" min="0" />
+    </div>
+    <div class="cd-header-ip-block">
+      <span class="cd-stat-label">IP SPENT</span>
+      <input class="cd-stat-val cd-ip-header-input" type="number"
+        name="system.ip.spent" value="{{ip.spent}}" min="0" />
+    </div>
+    <div class="cd-header-ip-block cd-header-ip-remaining">
+      <span class="cd-stat-label">IP LEFT</span>
+      <span class="cd-stat-val cd-ip-remaining-val">{{ip.remaining}}</span>
+    </div>
+  </div>
+
+  {{!-- REST --}}
+  <div class="cd-header-sep"></div>
+  <button type="button" class="cd-rest-btn" data-action="rest" title="Rest & Recovery">
+    REST
+    <i class="fas fa-moon"></i>
+  </button>
+
+</header>

@@ -1,0 +1,149 @@
+{
+  "id": "cthulhu-dreamt",
+  "title": "Cthulhu Dreamt",
+  "description": "System officiel pour Cthulhu Dreamt TTRPG. Un jeu de survie cosmique au d12, avec des Attributs, Stress, Blessures et Points d'Amélioration.",
+  "version": "0.1.0",
+  "background": "systems/cthulhu-dreamt/assets/cover.png",
+  "media": [
+    {
+      "type": "cover",
+      "url": "systems/cthulhu-dreamt/assets/cover.png",
+      "caption": "Cthulhu Dreamt — Cover Art"
+    }
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14",
+    "maximum": "14"
+  },
+  "authors": [
+    {
+      "name": "Cthulhu Dreamt Team",
+      "discord": ""
+    }
+  ],
+  "esmodules": [
+    "module/cthulhu-dreamt.mjs",
+    "module/chat.mjs",
+    "module/editor-helper.mjs"
+  ],
+  "styles": [
+    "styles/cthulhu-dreamt.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "label": "CD.ActorType.character",
+        "img": "icons/svg/mystery-man.svg"
+      },
+      "npc": {
+        "label": "CD.ActorType.npc",
+        "img": "icons/svg/skull.svg"
+      }
+    },
+    "Item": {
+      "specialty": {
+        "label": "CD-ItemType-specialty",
+        "img": "icons/svg/book.svg"
+      },
+      "skill": {
+        "label": "CD.ItemType.skill",
+        "img": "icons/svg/book.svg"
+      },
+      "weapon": {
+        "label": "CD.ItemType.weapon",
+        "img": "icons/svg/sword.svg"
+      },
+      "armor": {
+        "label": "CD.ItemType.armor",
+        "img": "icons/svg/shield.svg"
+      },
+      "tool": {
+        "label": "CD.ItemType.tool",
+        "img": "icons/svg/item-bag.svg"
+      },
+      "gear": {
+        "label": "CD.ItemType.gear",
+        "img": "icons/svg/backpack.svg"
+      }
+    }
+  },
+  "packs": [
+    {
+      "name": "specialties",
+      "label": "Specialties",
+      "path": "packs/specialties.db",
+      "type": "Item",
+      "system": "cthulhu-dreamt"
+    },
+    {
+      "name": "skills",
+      "label": "Skills",
+      "path": "packs/skills.db",
+      "type": "Item",
+      "system": "cthulhu-dreamt"
+    },
+    {
+      "name": "weapons",
+      "label": "Weapons",
+      "path": "packs/weapons.db",
+      "type": "Item",
+      "system": "cthulhu-dreamt"
+    },
+    {
+      "name": "armor",
+      "label": "Armor",
+      "path": "packs/armor.db",
+      "type": "Item",
+      "system": "cthulhu-dreamt"
+    },
+    {
+      "name": "equipment",
+      "label": "Equipment",
+      "path": "packs/equipment.db",
+      "type": "Item",
+      "system": "cthulhu-dreamt"
+    },
+    {
+      "name": "npcs",
+      "label": "NPCs & TRACEs",
+      "path": "packs/npcs.db",
+      "type": "Actor",
+      "system": "cthulhu-dreamt"
+    }
+  ],
+  "socket": false,
+  "relationships": {
+    "optional": [
+      {
+        "id": "dice-so-nice",
+        "type": "module",
+        "manifest": "https://foundryvtt.com/releases/modules/dice-so-nice/module.json",
+        "compatibility": { "minimum": "4.0.0" }
+      }
+    ]
+  },
+  "initiative": "1d12",
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "stress.physical.value",
+  "secondaryTokenAttribute": "stress.mental.value",
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "changelog": "CHANGELOG.md"
+}

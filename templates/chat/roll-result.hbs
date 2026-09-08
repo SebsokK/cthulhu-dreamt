@@ -1,0 +1,103 @@
+{{!-- templates/chat/roll-result.hbs --}}
+<div class="cd-roll-card {{degree}}" data-message-id="{{messageId}}">
+
+  {{!-- Header --}}
+  <div class="cd-roll-header">
+    <span class="cd-roll-actor">{{actorName}}</span>
+    <span class="cd-roll-sep">—</span>
+    <span class="cd-roll-label">{{label}}</span>
+    <span class="cd-roll-tn">TN {{tn}}</span>
+  </div>
+
+  {{!-- Dé + calcul --}}
+  <div class="cd-roll-body">
+    <div class="cd-roll-dice-row">
+      <div class="cd-roll-die {{degree}}">
+        <span class="cd-roll-natural">{{natural}}</span>
+        <span class="cd-roll-die-label">d12</span>
+      </div>
+      {{#if isWeapon}}
+      {{!-- Arme : afficher proficiency + modifier --}}
+      {{#if bonus}}
+      <div class="cd-roll-modifier">
+        <span class="cd-roll-plus">+</span>
+        <span class="cd-roll-ap-val">{{bonus}}</span>
+        <span class="cd-roll-ap-label">{{#if modifier}}Prof+Mod{{else}}Prof{{/if}}</span>
+      </div>
+      {{/if}}
+      {{else}}
+      {{#if totalAP}}
+      <div class="cd-roll-modifier">
+        <span class="cd-roll-plus">+</span>
+        <span class="cd-roll-ap-val">{{totalAP}}</span>
+        <span class="cd-roll-ap-label">AP</span>
+      </div>
+      {{/if}}
+      {{/if}}
+      <div class="cd-roll-equals">=</div>
+      <div class="cd-roll-final-wrap">
+        <span class="cd-roll-final">{{#if isWeapon}}{{final}}{{else}}{{finalResult}}{{/if}}</span>
+        <span class="cd-roll-vs">vs {{tn}}</span>
+      </div>
+    </div>
+
+    {{!-- Degré --}}
+    <div class="cd-roll-degree {{degree}}">{{degreeLabel}}</div>
+
+    {{!-- Sureffort --}}
+    {{#if overexertion}}
+    <div class="cd-roll-overexertion">
+      <i class="fas fa-bolt"></i> Overexertion — {{overexertion}} stress applied
+    </div>
+    {{/if}}
+
+    {{!-- Helpers --}}
+    {{#if helpers.length}}
+    <div class="cd-roll-helpers">
+      {{#each helpers}}
+      <span class="cd-roll-helper-tag">+{{ap}} {{name}}</span>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- Munitions restantes --}}
+    {{#if isWeapon}}
+    {{#if (gte shotsRemaining 0)}}
+    <div class="cd-roll-shots">
+      <i class="fas fa-circle-dot"></i>
+      <span>{{shotsRemaining}} / {{shotsMax}} rounds remaining</span>
+      {{#if (eq shotsRemaining 0)}}<span class="cd-roll-shots-empty">RELOAD</span>{{/if}}
+    </div>
+    {{/if}}
+    {{/if}}
+
+    {{!-- Damage roll (armes seulement) --}}
+    {{#if isWeapon}}
+    {{#if stressDice}}
+    <div class="cd-roll-damage-row">
+      <span class="cd-roll-stress-dice">{{stressDice}}</span>
+      <button type="button" class="cd-roll-damage-btn"
+        data-action="rollDamage"
+        data-stress="{{stressDice}}"
+        data-message-id="{{messageId}}">
+        <i class="fas fa-dice"></i> Roll Damage
+      </button>
+    </div>
+    {{/if}}
+    {{/if}}
+  </div>
+
+  {{!-- Actions --}}
+  {{#if canSpendMore}}
+  <div class="cd-roll-actions">
+    <button type="button" class="cd-roll-spend-btn"
+      data-action="spendAP"
+      data-message-id="{{messageId}}"
+      data-actor-id="{{actorId}}">
+      <i class="fas fa-plus"></i> Spend AP
+    </button>
+    <span class="cd-roll-hint">{{#if isWeapon}}Add AP to this attack{{else}}Anyone can add AP to help{{/if}}</span>
+  </div>
+  {{/if}}
+
+</div>

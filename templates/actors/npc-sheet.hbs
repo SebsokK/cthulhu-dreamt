@@ -1,0 +1,179 @@
+{{!-- templates/actors/npc-sheet.hbs --}}
+<div class="cd-sheet cd-npc-sheet">
+
+  {{!-- HEADER --}}
+  <div class="cd-npc-header">
+    <div class="cd-npc-portrait-wrap">
+      <img class="cd-npc-portrait" src="{{actor.img}}" alt="{{actor.name}}" title="Change portrait" />
+    </div>
+    <div class="cd-npc-identity">
+      <input class="cd-input cd-npc-name-input" type="text" name="name" value="{{actor.name}}" />
+      <div class="cd-npc-stats-row">
+        <div class="cd-npc-stat">
+          <span class="cd-npc-stat-label">INITIATIVE</span>
+          <input class="cd-npc-stat-val" type="number" name="system.initiative"
+            value="{{system.initiative}}" min="1" max="5" />
+        </div>
+        <div class="cd-npc-stat">
+          <span class="cd-npc-stat-label">TN</span>
+          <input class="cd-npc-stat-val" type="number" name="system.tn"
+            value="{{system.tn}}" min="1" max="20" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- LIMITS --}}
+  <div class="cd-npc-limits">
+    <div class="cd-npc-limit-block">
+      <div class="cd-npc-limit-header">
+        <span class="cd-npc-limit-label">PHYSICAL LIMIT</span>
+        <div class="cd-npc-limit-inputs">
+          <input class="cd-npc-limit-cur" type="number" name="system.physLimit.value"
+            value="{{system.physLimit.value}}" min="0" max="{{system.physLimit.max}}" />
+          <span class="cd-npc-limit-sep">/</span>
+          <input class="cd-npc-limit-max" type="number" name="system.physLimit.max"
+            value="{{system.physLimit.max}}" min="1" max="30" />
+        </div>
+      </div>
+      <div class="cd-npc-pips">
+        {{#each physPips}}
+        <button type="button" class="cd-npc-pip {{#if filled}}filled{{/if}} {{#if danger}}danger{{/if}}"
+          data-action="npcPipClick" data-track="phys" data-index="{{@index}}">
+        </button>
+        {{/each}}
+      </div>
+    </div>
+    <div class="cd-npc-limit-block">
+      <div class="cd-npc-limit-header">
+        <span class="cd-npc-limit-label">MENTAL LIMIT</span>
+        <div class="cd-npc-limit-inputs">
+          <input class="cd-npc-limit-cur" type="number" name="system.menLimit.value"
+            value="{{system.menLimit.value}}" min="0" max="{{system.menLimit.max}}" />
+          <span class="cd-npc-limit-sep">/</span>
+          <input class="cd-npc-limit-max" type="number" name="system.menLimit.max"
+            value="{{system.menLimit.max}}" min="1" max="30" />
+        </div>
+      </div>
+      <div class="cd-npc-pips">
+        {{#each menPips}}
+        <button type="button" class="cd-npc-pip mental {{#if filled}}filled{{/if}} {{#if danger}}danger{{/if}}"
+          data-action="npcPipClick" data-track="men" data-index="{{@index}}">
+        </button>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="cd-npc-body">
+
+    {{!-- TRAITS --}}
+    <div class="cd-npc-section">
+      <div class="cd-section-header">
+        <h3 class="cd-panel-title">TRAITS</h3>
+        <button type="button" class="cd-btn-icon" data-action="npcAddTrait" title="Add trait">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="cd-npc-entry-list">
+        {{#each traits}}
+        <div class="cd-npc-entry" data-index="{{@index}}" data-block="traits">
+          <div class="cd-npc-entry-row">
+            <input class="cd-input cd-npc-entry-name" type="text"
+              name="system.traits.{{@index}}.name"
+              value="{{name}}" placeholder="Trait name" />
+            <button type="button" class="cd-btn-icon cd-btn-delete"
+              data-action="npcRemoveEntry" data-block="traits" data-index="{{@index}}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <textarea class="cd-textarea cd-npc-entry-desc"
+            name="system.traits.{{@index}}.description"
+            placeholder="Description...">{{description}}</textarea>
+        </div>
+        {{else}}
+        <p class="cd-empty-hint">No traits defined.</p>
+        {{/each}}
+      </div>
+    </div>
+
+    {{!-- MAJOR ACTIONS --}}
+    <div class="cd-npc-section">
+      <div class="cd-section-header">
+        <h3 class="cd-panel-title">MAJOR ACTIONS</h3>
+        <button type="button" class="cd-btn-icon" data-action="npcAddMajor" title="Add action">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="cd-npc-entry-list">
+        {{#each majorActions}}
+        <div class="cd-npc-entry" data-index="{{@index}}" data-block="majorActions">
+          <div class="cd-npc-entry-row">
+            <button type="button" class="cd-npc-roll-btn" data-action="npcRollDamage"
+              data-index="{{@index}}" title="Roll damage">
+              <i class="fas fa-dice"></i>
+            </button>
+            <input class="cd-input cd-npc-entry-name" type="text"
+              name="system.majorActions.{{@index}}.name"
+              value="{{name}}" placeholder="Action name" />
+            <div class="cd-npc-damage-wrap">
+              <label class="cd-label" style="font-size:8px">DMG</label>
+              <input class="cd-input cd-npc-damage-input" type="text"
+                name="system.majorActions.{{@index}}.damage"
+                value="{{damage}}" placeholder="—" />
+            </div>
+            <div class="cd-npc-dmgtype-wrap">
+              <button type="button"
+                class="cd-npc-dmgtype-btn {{#if (eq damageType 'mental')}}mental{{else}}physical{{/if}}"
+                data-action="npcToggleDmgType" data-index="{{@index}}"
+                title="Toggle Physical / Mental">
+                {{#if (eq damageType 'mental')}}MEN{{else}}PHY{{/if}}
+              </button>
+            </div>
+            <button type="button" class="cd-btn-icon cd-btn-delete"
+              data-action="npcRemoveEntry" data-block="majorActions" data-index="{{@index}}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <textarea class="cd-textarea cd-npc-entry-desc"
+            name="system.majorActions.{{@index}}.description"
+            placeholder="Description...">{{description}}</textarea>
+        </div>
+        {{else}}
+        <p class="cd-empty-hint">No major actions defined.</p>
+        {{/each}}
+      </div>
+    </div>
+
+    {{!-- MINOR ACTIONS --}}
+    <div class="cd-npc-section">
+      <div class="cd-section-header">
+        <h3 class="cd-panel-title">MINOR ACTIONS</h3>
+        <button type="button" class="cd-btn-icon" data-action="npcAddMinor" title="Add action">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="cd-npc-entry-list">
+        {{#each minorActions}}
+        <div class="cd-npc-entry" data-index="{{@index}}" data-block="minorActions">
+          <div class="cd-npc-entry-row">
+            <input class="cd-input cd-npc-entry-name" type="text"
+              name="system.minorActions.{{@index}}.name"
+              value="{{name}}" placeholder="Action name" />
+            <button type="button" class="cd-btn-icon cd-btn-delete"
+              data-action="npcRemoveEntry" data-block="minorActions" data-index="{{@index}}">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <textarea class="cd-textarea cd-npc-entry-desc"
+            name="system.minorActions.{{@index}}.description"
+            placeholder="Description...">{{description}}</textarea>
+        </div>
+        {{else}}
+        <p class="cd-empty-hint">No minor actions defined.</p>
+        {{/each}}
+      </div>
+    </div>
+
+  </div>
+</div>

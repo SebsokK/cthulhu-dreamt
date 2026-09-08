@@ -1,0 +1,74 @@
+{
+  "CD-ActorType-character": "Personnage",
+  "CD-ActorType-npc": "PNJ",
+
+  "CD-ItemType-skill": "Compétence",
+  "CD-ItemType-weapon": "Arme",
+  "CD-ItemType-armor": "Armure",
+  "CD-ItemType-tool": "Outil",
+  "CD-ItemType-gear": "Équipement",
+
+  "CD-Sheet-actor": "Fiche Cthulhu Dreamt",
+  "CD-Sheet-item": "Fiche d'objet Cthulhu Dreamt",
+
+  "CD-Attr-strong": "Fort",
+  "CD-Attr-strongSub": "Puissance physique",
+  "CD-Attr-agile": "Agile",
+  "CD-Attr-agileSub": "Mouvement & dextérité",
+  "CD-Attr-cunning": "Rusé",
+  "CD-Attr-cunningSub": "Esprit & persuasion",
+  "CD-Attr-vigilant": "Vigilant",
+  "CD-Attr-vigilantSub": "Perception & conscience",
+  "CD-Attr-careful": "Précautionneux",
+  "CD-Attr-carefulSub": "Discrétion & dissimulation",
+  "CD-Attr-tenacious": "Tenace",
+  "CD-Attr-tenaciousSub": "Volonté & résilience",
+
+  "CD-Stress-physical": "Stress Physique",
+  "CD-Stress-mental": "Stress Mental",
+
+  "CD-Wound-mild": "Légère",
+  "CD-Wound-serious": "Sérieuse",
+  "CD-Wound-severe": "Sévère",
+  "CD-Wound-physical": "Blessures Physiques",
+  "CD-Wound-mental": "Blessures Mentales",
+  "CD-Wound-level": "Niveau",
+  "CD-Wound-description": "Description",
+  "CD-Wound-track": "Suivi",
+
+  "CD-Skill-noUses": "Plus d'utilisations disponibles.",
+
+  "CD-Roll-dialogTitle": "Jet — {label}",
+  "CD-Roll-dialogTN": "Seuil de difficulté (TN)",
+  "CD-Roll-dialogAP": "Points d'attribut à dépenser",
+  "CD-Roll-dialogRoll": "Lancer",
+  "CD-Roll-dialogCancel": "Annuler",
+
+  "CD-Roll-criticalFailure": "Échec Critique",
+  "CD-Roll-failure": "Échec",
+  "CD-Roll-partial": "Succès Partiel",
+  "CD-Roll-success": "Succès",
+
+  "CD-Goal-completedMsg": "Objectif accompli ! +{ip} PI gagnés.",
+  "CD-Goal-current": "Objectifs en cours",
+  "CD-Goal-completedLabel": "Objectifs accomplis",
+  "CD-Goal-add": "Ajouter un objectif",
+  "CD-Goal-description": "Description",
+  "CD-Goal-ip": "PI",
+
+  "CD-IP-gained": "PI Total Gagné",
+  "CD-IP-spent": "PI Total Dépensé",
+  "CD-IP-remaining": "PI Restant",
+
+  "CD-Item-deleteTitle": "Supprimer",
+  "CD-Item-deleteConfirm": "Supprimer {name} ?",
+  "CD-Item-newSkill": "Nouvelle compétence",
+  "CD-Item-newWeapon": "Nouvelle arme",
+  "CD-Item-newArmor": "Nouvelle armure",
+  "CD-Item-newTool": "Nouvel outil",
+  "CD-Item-newGear": "Nouvel équipement",
+
+  "CD-Tab-stats": "Stats",
+  "CD-Tab-inventory": "Inventaire",
+  "CD-Tab-goals": "Objectifs"
+}

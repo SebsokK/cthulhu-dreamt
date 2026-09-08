@@ -1,0 +1,77 @@
+{{!-- templates/items/specialty-sheet.hbs --}}
+<div class="cd-sheet item cd-specialty-sheet">
+
+  <header class="cd-item-header">
+    <img class="cd-item-header-img" src="{{item.img}}" alt="{{item.name}}" data-action="editImage" />
+    <div class="cd-item-header-info">
+      <input class="cd-input cd-name-input" type="text" name="name" value="{{item.name}}" />
+      <div class="cd-specialty-meta">
+        <div class="cd-field-group">
+          <label class="cd-label">MAX TIER</label>
+          <select class="cd-select cd-select-sm" name="system.tierMax">
+            <option value="1" {{#if (eq system.tierMax 1)}}selected{{/if}}>Tier 1</option>
+            <option value="2" {{#if (eq system.tierMax 2)}}selected{{/if}}>Tier 2</option>
+            <option value="3" {{#if (eq system.tierMax 3)}}selected{{/if}}>Tier 3</option>
+          </select>
+        </div>
+        <div class="cd-field-group">
+          <label class="cd-label">CARRY CAPACITY</label>
+          <input class="cd-input cd-input-sm" type="number"
+            name="system.carryCapacity" value="{{system.carryCapacity}}" min="1" max="12" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="cd-specialty-body">
+
+    {{!-- Description --}}
+    <div class="cd-form-group cd-editor-group">
+      <label class="cd-label">DESCRIPTION</label>
+      {{editor enriched.description target="system.description" button=true engine="prosemirror" collaborate=false editable=editable}}
+    </div>
+
+    {{!-- Skills embarquées --}}
+    <div class="cd-specialty-skills">
+      <div class="cd-section-header">
+        <h3 class="cd-panel-title">SKILLS</h3>
+        <button type="button" class="cd-btn-icon" data-action="addSpecialtySkill" title="Add skill">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+
+      {{!-- Par tier --}}
+      {{#each (array 1 2 3)}}
+      {{#if (lt (sub this 1) ../system.tierMax)}}
+      <div class="cd-specialty-tier-block">
+        <div class="cd-specialty-tier-label">TIER {{this}}</div>
+        <div class="cd-specialty-skill-list">
+          {{#each ../system.skills}}
+          {{#if (eq tier ../this)}}
+          <div class="cd-specialty-skill-row" data-skill-index="{{@index}}">
+            <span class="cd-specialty-skill-type-badge {{#if (eq skillType 'universal')}}universal{{/if}}">
+              {{#if (eq skillType 'universal')}}U{{else}}S{{/if}}
+            </span>
+            <input class="cd-input cd-specialty-skill-name" type="text"
+              name="system.skills.{{@index}}.name" value="{{name}}" placeholder="Skill name" />
+            <select class="cd-select cd-select-xs" name="system.skills.{{@index}}.skillType">
+              <option value="specialty" {{#if (eq skillType 'specialty')}}selected{{/if}}>Specialty</option>
+              <option value="universal" {{#if (eq skillType 'universal')}}selected{{/if}}>Universal</option>
+            </select>
+            <input class="cd-input cd-specialty-skill-uses" type="number"
+              name="system.skills.{{@index}}.uses" value="{{uses}}" min="0" title="Uses/day" />
+            <button type="button" class="cd-btn-icon cd-btn-delete"
+              data-action="removeSpecialtySkill" data-skill-index="{{@index}}" title="Remove">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+
+    </div>
+  </div>
+</div>

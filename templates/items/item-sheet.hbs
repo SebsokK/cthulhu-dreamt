@@ -1,0 +1,211 @@
+{{!-- templates/items/item-sheet.hbs --}}
+<div class="cd-sheet item {{type}}">
+  <header class="cd-item-header">
+    <img class="cd-item-header-img" src="{{item.img}}" alt="{{item.name}}" data-edit="img" />
+    <div class="cd-item-header-info">
+      <input class="cd-input cd-name-input" type="text" name="name" value="{{item.name}}" />
+      <span class="cd-label cd-item-type-label">{{type}}</span>
+    </div>
+  </header>
+
+  <div class="cd-item-body">
+
+    {{!-- Description --}}
+    <div class="cd-form-group cd-editor-group">
+      <label class="cd-label">DESCRIPTION</label>
+      {{editor enriched.description target="system.description" button=true engine="prosemirror" collaborate=false editable=editable}}
+    </div>
+
+    {{!-- ── SKILL ── --}}
+    {{#if (eq type "skill")}}
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">TIER</label>
+        <select class="cd-select" name="system.tier">
+          <option value="1" {{#if (eq system.tier 1)}}selected{{/if}}>Tier 1</option>
+          <option value="2" {{#if (eq system.tier 2)}}selected{{/if}}>Tier 2</option>
+          <option value="3" {{#if (eq system.tier 3)}}selected{{/if}}>Tier 3</option>
+        </select>
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">USE TYPE</label>
+        <select class="cd-select" name="system.uses.type">
+          <option value="unlimited" {{#if (eq system.uses.type "unlimited")}}selected{{/if}}>Unlimited</option>
+          <option value="limited"   {{#if (eq system.uses.type "limited")}}selected{{/if}}>Limited</option>
+        </select>
+      </div>
+      {{#if (eq system.uses.type "limited")}}
+      <div class="cd-form-group">
+        <label class="cd-label">USES (cur / max)</label>
+        <div class="cd-uses-row">
+          <input class="cd-input cd-input-sm" type="number" name="system.uses.value"
+            value="{{system.uses.value}}" min="0" max="{{system.uses.max}}" />
+          <span class="cd-uses-sep">/</span>
+          <input class="cd-input cd-input-sm" type="number" name="system.uses.max"
+            value="{{system.uses.max}}" min="0" />
+          <span class="cd-label cd-uses-per">/ day</span>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
+
+    {{!-- ── WEAPON ── --}}
+    {{#if (eq type "weapon")}}
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">SIZE</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.size"
+          value="{{system.size}}" min="1" max="10" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">STRESS DICE</label>
+        <input class="cd-input" type="text" name="system.stress"
+          value="{{system.stress}}" placeholder="e.g. 1d6" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">RANGE</label>
+        <select class="cd-select" name="system.range">
+          <option value="melee"  {{#if (eq system.range "melee") }}selected{{/if}}>Melee</option>
+          <option value="close"  {{#if (eq system.range "close") }}selected{{/if}}>Close</option>
+          <option value="medium" {{#if (eq system.range "medium")}}selected{{/if}}>Medium</option>
+          <option value="long"   {{#if (eq system.range "long")  }}selected{{/if}}>Long</option>
+        </select>
+      </div>
+    </div>
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">CATEGORY</label>
+        <select class="cd-select" name="system.category">
+          <option value="close-quarters" {{#if (eq system.category "close-quarters")}}selected{{/if}}>Close Quarters</option>
+          <option value="small-arms"     {{#if (eq system.category "small-arms")    }}selected{{/if}}>Small Arms</option>
+          <option value="long-arms"      {{#if (eq system.category "long-arms")     }}selected{{/if}}>Long Arms</option>
+          <option value="heavy"          {{#if (eq system.category "heavy")         }}selected{{/if}}>Heavy</option>
+          <option value="thrown"         {{#if (eq system.category "thrown")        }}selected{{/if}}>Thrown</option>
+          <option value="edge"           {{#if (eq system.category "edge")          }}selected{{/if}}>EDGe</option>
+        </select>
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">MODIFIER</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.modifier"
+          value="{{system.modifier}}" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">AMMO TYPE</label>
+        <input class="cd-input" type="text" name="system.ammoType"
+          value="{{system.ammoType}}" placeholder="e.g. Ammunition (Small Arms)" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">SHOTS (cur / max)</label>
+        <div class="cd-uses-row">
+          <input class="cd-input cd-input-sm" type="number" name="system.shots.value"
+            value="{{system.shots.value}}" min="0" />
+          <span class="cd-uses-sep">/</span>
+          <input class="cd-input cd-input-sm" type="number" name="system.shots.max"
+            value="{{system.shots.max}}" min="0" />
+        </div>
+      </div>
+    </div>
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">EQUIPPED</label>
+        <label class="cd-checkbox-label">
+          <input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}} />
+          <span>Equipped</span>
+        </label>
+      </div>
+    </div>
+    {{/if}}
+
+    {{!-- ── ARMOR ── --}}
+    {{#if (eq type "armor")}}
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">SIZE</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.size"
+          value="{{system.size}}" min="1" max="10" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">ARMOR VALUE</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.armorValue"
+          value="{{system.armorValue}}" min="0" max="6" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">CARRY BONUS</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.carryCapacityBonus"
+          value="{{system.carryCapacityBonus}}" min="0" />
+      </div>
+    </div>
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">EQUIPPED</label>
+        <label class="cd-checkbox-label">
+          <input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}} />
+          <span>Equipped</span>
+        </label>
+      </div>
+    </div>
+    {{/if}}
+
+    {{!-- ── TOOL ── --}}
+    {{#if (eq type "tool")}}
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">SIZE</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.size"
+          value="{{system.size}}" min="1" max="10" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">TN BONUS</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.tnBonus"
+          value="{{system.tnBonus}}" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">QUANTITY</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.quantity"
+          value="{{system.quantity}}" min="0" />
+      </div>
+    </div>
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">BROKEN</label>
+        <label class="cd-checkbox-label">
+          <input type="checkbox" name="system.broken" {{#if system.broken}}checked{{/if}} />
+          <span>Broken</span>
+        </label>
+      </div>
+    </div>
+    {{/if}}
+
+    {{!-- ── GEAR ── --}}
+    {{#if (eq type "gear")}}
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">SIZE</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.size"
+          value="{{system.size}}" min="1" max="10" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">QUANTITY</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.quantity"
+          value="{{system.quantity}}" min="0" />
+      </div>
+      <div class="cd-form-group">
+        <label class="cd-label">CARRY BONUS</label>
+        <input class="cd-input cd-input-sm" type="number" name="system.carryCapacityBonus"
+          value="{{system.carryCapacityBonus}}" min="0" />
+      </div>
+    </div>
+    <div class="cd-item-fields-row">
+      <div class="cd-form-group">
+        <label class="cd-label">EQUIPPED</label>
+        <label class="cd-checkbox-label">
+          <input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}} />
+          <span>Equipped</span>
+        </label>
+      </div>
+    </div>
+    {{/if}}
+
+  </div>
+</div>
