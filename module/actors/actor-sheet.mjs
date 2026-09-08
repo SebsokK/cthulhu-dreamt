@@ -39,6 +39,7 @@ export class CthulhuDreamtActorSheet extends BaseMixin(BaseSheet) {
       reloadWeapon:        CthulhuDreamtActorSheet._onReloadWeapon,
       profPipClick:        CthulhuDreamtActorSheet._onProfPipClick,
       specialtyProgression: CthulhuDreamtActorSheet._onSpecialtyProgression,
+      progressionDialog:    CthulhuDreamtActorSheet._onProgressionDialog,
       woundTrackClick:      CthulhuDreamtActorSheet._onWoundTrackClick,
       rest:                 CthulhuDreamtActorSheet._onRest,
       showSpecialtySkills: CthulhuDreamtActorSheet._onShowSpecialtySkills,

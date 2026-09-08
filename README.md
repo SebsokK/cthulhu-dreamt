@@ -2,6 +2,8 @@
 
 ![Cthulhu Dreamt Unofficial](assets/CDunofficial.png)
 
+![Cthulhu Dreamt Unofficial Capt](assets/cdcapt.png)
+
 ---
 
 > ⚠️ **This is an UNOFFICIAL, AI-assisted implementation.**
